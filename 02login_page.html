@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./src/styles/02login_page.css">
+</head>
+<body>
+    <form action="" class="form" id="loginForm">
+        <p><h3>ĐĂNG NHẬP</h3></p>
+        <table id="table_login">
+            <tr>
+                <td><label for="email_login">Email</label></td>
+                <td><input type="email" id="email_login"></td>
+            </tr>
+            <tr>
+                <td><label for="password_login">Mật khẩu</label></td>
+                <td><input type="password" id="password_login"></td>
+            </tr>
+        </table>
+        <button type="submit">Đăng nhập</button>
+        <p id="errorMessage" style="color:red;"></p>
+    </form>
+    <script src="./src/scripts/02login_page.js"></script>
+    <script src="./src/utils/02_login_import-fake-data.js"></script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Management</title>
+</head>
+<body>
+    <!-- Form thêm mới / chỉnh sửa khóa học -->
+    <div id="form_addNew" style="display:none;">
+        <label for="ma-khoa-hoc">Mã khóa học:</label>
+        <input type="text" id="ma-khoa-hoc"><br>
+
+        <label for="ten-khoa-hoc">Tên khóa học:</label>
+        <input type="text" id="ten-khoa-hoc"><br>
+
+        <label for="thoi-gian">Thời gian:</label>
+        <input type="text" id="thoi-gian"><br>
+
+        <button id="btn_addnewform">Thêm mới</button>
+        <button id="btn_closeform">Đóng</button>
+    </div>
+
+    <!-- Khu vực hiển thị bảng danh sách khóa học -->
+    <div id="dataTable">
+        <table id="dataTable" border="1">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Mã Khóa Học</th>
+                    <th>Tên Khóa Học</th>
+                    <th>Thời Gian</th>
+                    <th>Trạng Thái</th>
+                    <th>Sửa</th>
+                    <th>Xóa</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <!-- Button để mở form thêm mới -->
+    <div id="row_2">
+        <button id="row_2_addNew">Thêm mới khóa học</button>
+    </div>
+
+    <script>
+        // Lấy dữ liệu từ LocalStorage hoặc khởi tạo mảng rỗng nếu chưa có
+        let courseInformation = JSON.parse(localStorage.getItem('courseInfo')) || [];
+
+        // Tạo bảng từ dữ liệu đã lưu
+        let tableBody = document.querySelector('#dataTable tbody');
+
+        // Hàm để render danh sách khóa học từ localStorage
+        function renderCourseList() {
+            tableBody.innerHTML = ''; // Xóa toàn bộ nội dung cũ trước khi render lại
+
+            courseInformation.forEach((item, index) => {
+                let row = document.createElement('tr');
+
+                let sttCell = document.createElement('td');
+                sttCell.textContent = index + 1; // STT tự động tăng dựa trên vị trí trong mảng
+                row.appendChild(sttCell);
+
+                let maKhoaHocCell = document.createElement('td');
+                maKhoaHocCell.textContent = item.maKhoaHoc;
+                row.appendChild(maKhoaHocCell);
+
+                let tenKhoaHocCell = document.createElement('td');
+                tenKhoaHocCell.textContent = item.tenKhoaHoc;
+                row.appendChild(tenKhoaHocCell);
+
+                let thoiGianCell = document.createElement('td');
+                thoiGianCell.textContent = item.thoiGian;
+                row.appendChild(thoiGianCell);
+
+                let trangThaiCell = document.createElement('td');
+                trangThaiCell.textContent = item.trangThai;
+                row.appendChild(trangThaiCell);
+
+                //Nút sửa
+                let suaCell = document.createElement('td');
+                let editButton = document.createElement('button');
+                editButton.textContent = 'Sửa';
+                editButton.onclick = function () {
+                    editCourse(index); //Gọi hàm sửa với chỉ mục 
+                };
+                suaCell.appendChild(editButton);
+                row.appendChild(suaCell);
+
+                //Nút xóa
+                let xoaCell = document.createElement('td');
+                let deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Xóa';
+                deleteButton.onclick = function () {
+                    deleteCourse(index); //Gọi hàm xóa với chỉ mục
+                };
+                xoaCell.appendChild(deleteButton);
+                row.appendChild(xoaCell);
+
+                // Thêm hàng vào tbody của bảng
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Hàm để xóa khóa học
+        function deleteCourse(index) {
+            courseInformation.splice(index, 1); // Xóa phần tử theo chỉ mục
+            localStorage.setItem("courseInfo", JSON.stringify(courseInformation)); // Cập nhật lại localStorage
+            renderCourseList(); // Render lại bảng sau khi xóa
+        }
+
+        // Hàm để sửa khóa học
+        function editCourse(index) {
+            // Điền dữ liệu khóa học vào form
+            let course = courseInformation[index];
+            courseCode.value = course.maKhoaHoc;
+            courseName.value = course.tenKhoaHoc;
+            courseTime.value = course.thoiGian;
+
+            // Ẩn bảng, hiển thị form để chỉnh sửa
+            dataTable.style.display = "none";
+            formAddNew.style.display = "block";
+            row2.style.display = "none";
+
+            // Thay đổi hành động của nút Thêm mới thành "Lưu chỉnh sửa"
+            btnAddNewForm.textContent = "Lưu chỉnh sửa";
+
+            // Gán lại sự kiện onclick cho nút Lưu chỉnh sửa
+            btnAddNewForm.onclick = function () {
+                // Cập nhật thông tin khóa học đã chỉnh sửa
+                courseInformation[index] = {
+                    stt: index + 1,
+                    maKhoaHoc: courseCode.value,
+                    tenKhoaHoc: courseName.value,
+                    thoiGian: courseTime.value,
+                    trangThai: "Hoạt Động",
+                };
+
+                // Cập nhật lại localStorage
+                localStorage.setItem("courseInfo", JSON.stringify(courseInformation));
+
+                // Reset form và nút sau khi lưu
+                courseCode.value = '';
+                courseName.value = '';
+                courseTime.value = '';
+                btnAddNewForm.textContent = 'Thêm mới';
+                btnAddNewForm.onclick = addNewCourse; // Reset lại hành động của nút về "Thêm mới"
+
+                // Hiển thị lại bảng và ẩn form
+                formAddNew.style.display = "none";
+                dataTable.style.display = "";
+                row2.style.display = "";
+
+                renderCourseList(); // Render lại bảng với dữ liệu mới
+            }
+        }
+
+        // Gọi hàm render khi trang được tải lại
+        renderCourseList();
+
+        // Function thêm mới khóa học
+        let formAddNew = document.getElementById("form_addNew");
+        let btnAddNew = document.getElementById("row_2_addNew");
+        let dataTable = document.getElementById("dataTable");
+        let row2 = document.getElementById("row_2");
+        let btnCloseForm = document.getElementById("btn_closeform");
+
+        // Các ô nhập liệu
+        let btnAddNewForm = document.getElementById("btn_addnewform");
+        let courseCode = document.getElementById("ma-khoa-hoc");
+        let courseName = document.getElementById("ten-khoa-hoc");
+        let courseTime = document.getElementById("thoi-gian");
+
+        // Hàm thêm mới khóa học
+        function addNewCourse() {
+            // Kiểm tra nếu các trường dữ liệu đều có giá trị
+            if (courseCode.value && courseName.value && courseTime.value) {
+                let newCourseInfo = {
+                    stt: courseInformation.length + 1, // STT tự động tăng
+                    maKhoaHoc: courseCode.value,
+                    tenKhoaHoc: courseName.value,
+                    thoiGian: courseTime.value,
+                    trangThai: "Hoạt Động",
+                };
+
+                // Thêm dữ liệu vào danh sách
+                courseInformation.push(newCourseInfo);
+
+                // Lưu toàn bộ mảng vào localStorage
+                localStorage.setItem("courseInfo", JSON.stringify(courseInformation));
+
+                // Gọi hàm render để hiển thị lại bảng
+                renderCourseList();
+
+                // Reset các giá trị đầu vào sau khi thêm
+                courseCode.value = '';
+                courseName.value = '';
+                courseTime.value = '';
+            } else {
+                console.log("Please fill in all fields.");
+            }
+        }
+
+        // Gán sự kiện onclick ban đầu cho nút Thêm mới
+        btnAddNewForm.onclick = addNewCourse;
+
+        // Ẩn hiện form thêm mới
+        btnAddNew.addEventListener('click', function () {
+            dataTable.style.display = "none";
+            row2.style.display = "none";
+            formAddNew.style.display = "block";
+        });
+
+        // Đóng form khi nhấn nút Đóng
+        btnCloseForm.onclick = function () {
+            formAddNew.style.display = "none";
+            dataTable.style.display = "";
+            row2.style.display = "";
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="./src/styles/05class_page.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="item-1 item">
+            <div class="box_1 box">
+                <img src="./src/assets/logo rikkei.jpg" alt="Logo" id="img1">
+                <p id="quote">Để nông dân biết code</p>
+            </div>
+            <div class="box_2 box">
+                <h3>HỆ THỐNG QUẢN LÝ SINH VIÊN RIKKEI</h3>
+            </div>
+            <div class="box_3 box"><a href="./layout7_logout.html"><button id="btn_logout">Đăng xuất</button></a></div>
+        </div>
+        <div class="item-2 item">
+            <table class=" sidebar_table">
+                <tr class="sidebar_padding sidebar_pointer " id="sidebar_1">
+                    <td class="sidebar_padding"><i class="fa-solid fa-house" style="color: #bb2227;"></i></td>
+                    <td class="sidebar_padding ">Bảng điều khiển</td>
+                </tr>
+                <tr class="sidebar_padding sidebar_pointer " id="sidebar_2">
+                    <td class="sidebar_padding"><i class="fa-solid fa-school" style="color: #bb2227;"></i></td>
+                    <td class="sidebar_padding ">Quản lý khóa học</td>
+                </tr>
+                <tr class="sidebar_padding sidebar_pointer " id="sidebar_3">
+                    <td class="sidebar_padding"><i class="fa-solid fa-book" style="color: #bb2227;"></i></td>
+                    <td class="sidebar_padding ">Quản lý lớp học </td>
+                </tr>
+                <tr class="sidebar_padding sidebar_pointer" id="sidebar_4">
+                    <td class="sidebar_padding"><i class="fa-solid fa-people-group" style="color: #bb2227;"></i></td>
+                    <td class="sidebar_padding ">Quản lý sinh viên</td>
+                </tr>
+                <tr class="sidebar_padding sidebar_pointer " id="sidebar_5">
+                    <td class="sidebar_padding"><i class="fa-solid fa-user" style="color: #bb2227;"></i></td>
+                    <td class="sidebar_padding">Quản lý tài khoản</td>
+                </tr>
+            </table>
+        </div>
+
+
+        <div class="item-3 item">
+            <div>
+                <div id="row_1">
+                    <h5>QUẢN LÝ KHÓA HỌC</h5>
+                </div>
+                <div id="row_2">
+                    <a id="row_2_addNew">Thêm mới</a>
+                    <div id="row_2_search">
+                        <input id="searchInput" type="text" placeholder="Nhập từ khóa học tìm kiếm">
+                        <button id="row_2_btnSearch">Tìm kiếm</button>
+                    </div>
+                    <div id="row_2_arrange">Sắp xếp</div>
+                </div>
+                <div id="row_3">
+                    <table id="dataTable">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Mã lớp</th>
+                                <th>Tên lớp</th>
+                                <th>Giảng viên</th>
+                                <th>Mô tả</th>
+                                <th>Sĩ số</th>
+                                <th>Trạng thái</th>
+                                <th>Khóa học</th>
+                                <th colspan="2">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Dữ liệu từ localStorage sẽ được cập nhật tại đây -->
+                        </tbody>
+                    </table>
+                </div>
+                
+
+                <div class="modal" id="form_addNew">
+                    <h2>Modal - Thêm mới lớp học</h2><span id="x-btn-addnewform">x</span>
+                    <form>
+                        <div class="form-group">
+                            <label for="ma-lop-hoc">Mã lớp học <span class="required">(*)</span></label>
+                            <input type="text" id="ma-lop-hoc" placeholder="Nhập vào mã lớp học">
+                        </div>
+                        <div class="form-group">
+                            <label for="ten-lop-hoc">Tên lớp học <span class="required">(*)</span></label>
+                            <input type="text" id="ten-lop-hoc" placeholder="Nhập vào tên lớp học">
+                        </div>
+                        <div class="form-group">
+                            <label for="giang-vien">Giảng viên <span class="required">(*)</span></label>
+                            <input type="text" id="giang-vien" placeholder="Nhập vào giảng viên dạy lớp">
+                        </div>
+                        <div class="form-group">
+                            <label for="si-so">Sĩ số<span class="required">(*)</span></label>
+                            <input type="text" id="si-so" placeholder="Nhập vào sĩ số lớp">
+                        </div>
+                        <div class="form-group">
+                            <label for="mo-ta">Mô tả</label>
+                            <input type="text" id="mo-ta" placeholder="Nhập vào mô tả của lớp">
+                        </div>
+                        <div class="form-group">
+                            <label for="trang-thai">Trạng thái</label>
+                            <input type="text" id="trang-thai" placeholder="Chọn trạng thái lớp">
+                        </div>
+                        <div class="form-group buttons">
+                            <button type="button" id="btn_addnewform">Thêm mới</button>
+                            <button type="button" id="btn_closeform">Đóng</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="item-4 item"></div>
+
+        <div class="item-5 item"></div>
+    </div>
+
+
+    <script src="./src/scripts/05class_page.js"></script>
+    <script src="./src/utils/05class_page_fakedata.js"></script>
+    <script src="https://kit.fontawesome.com/09ced5449c.js" crossorigin="anonymous"></script>
+    <script src="./src/scripts/03homepage.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+/* CSS thanh navbar */
+#sidebar {
+    
+    position: fixed;
+    height: 100%;
+    padding-top:100px;
+    padding-bottom:100px;
+    border-right: solid 1px #bb2227;
+    margin-bottom: 100px;
+    border-bottom: solid 1px #bb2227;
+}
+
+.sidebar_padding{
+    padding-top: 20px;
+    padding-right: 15px;
+    padding-left: 15px;
+    color:#bb2227;
+}
+.sidebar_table{
+    margin-top:30px;
+    margin-left: 20px;
+}
+
+.sidebar_table tr{
+    border-bottom: solid 2px #bb2227;
+}
+
+
+
+
+
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Ensure navbar is on top of other content */
+    border-bottom:solid 1px #bb2227;
+}
+#img1 {
+    padding: 0;
+    height: 100px;
+    margin: 0;
+}
+#nav1_nav1 {
+    padding: 0;
+    margin:0;
+    background-color: white;
+   
+}
+#nav1_nav2 {
+    position: fixed;
+    right: 1000px;
+    top:60px;
+}
+#nav1 {
+    padding: 0;
+    
+}
+/* CCS sidebar */
+.nav-link{
+    color:#bb2227;
+}
+
+main{
+    min-height: calc(100vh - 100px);
+    padding-top:100px;
+}
+footer {
+    position: fixed;
+    height: 50px;
+    bottom: 0;
+    width: 100%;
+    border-top:solid 1px #bb2227;
+}
+#btn_login {
+    position:fixed;
+    right: 5px;
+    top:60px;
+    padding: 2px 25px ;
+    border-radius: 7px;
+
+    border:none;
+    
+    
+    background-color: #c8464a;
+    color:#f8f9fa;
+    text-decoration: none;
+    cursor: pointer;
+}
+#btn_login:hover {
+    background-color:#ce0e18;
+}
+/* <!-- form đăng nhập --> */
+
+
